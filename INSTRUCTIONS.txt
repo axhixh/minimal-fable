@@ -1,0 +1,89 @@
+> mkdir diet-ui
+> vim package.json
+
+{
+    "private": true,
+    "scripts": {
+        "start": "webpack-dev-server",
+        "bundle": "webpack"
+    },
+    "dependencies": {
+        "@babel/core": "^7.3.4",
+        "fable-compiler": "^2.1.12",
+        "fable-loader": "^2.1.5",
+        "webpack": "^4.35.2",
+        "webpack-cli": "^3.2.3",
+        "webpack-dev-server": "^3.2.1"
+    }
+}
+
+> npm install
+
+> vim webpack.config.js
+
+var path = require("path")
+
+module.exports = {
+    mode: "development",
+    entry: "./src/App.fsproj",
+    output: {
+        path: path.join(__dirname, "./public"),
+        filename: "bundle.js",
+    },
+    devServer: {
+        contentBase: "./public",
+        port: 8080,
+    },
+    module: {
+        rules: [{
+            test: /\.fs(x|proj)?$/,
+            use: "fable-loader"
+        }]
+    }
+}
+
+> mkdir src public
+
+> vim src/App.fsproj
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fable.Core" Version="3.0.0" />
+    <PackageReference Include="Fable.Import.Browser" Version="1.3.0" />
+  </ItemGroup>
+</Project>
+
+> vim src/App.fs
+
+module App
+
+open Fable.Core
+open Fable.Import
+
+let Greetings = "Hello, Fable!"
+
+let content = Browser.document.getElementById "content"
+content.innerHTML <- (sprintf "<h1>%s</h1>" Greetings)
+
+Browser.window.console.log Greetings
+
+> vim public/index.html
+
+<html>
+    <head><title>Hello!</title></head>
+    <body>
+        <div id="content"></div>
+        <script src="bundle.js"></script>
+    </body>
+</html>
+
+> npm start
+
+> npm run-script build 
+should generate src/bundle.js

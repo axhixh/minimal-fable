@@ -1,0 +1,5 @@
+node_modules
+.ionide
+public/bundle.js
+src/bin
+src/obj
