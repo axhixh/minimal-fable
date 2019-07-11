@@ -8,3 +8,7 @@ Minimal project for exploring Fable.
  - `npm start` to start a development server, and point
     your browser to http://localhost:8080
  - `npm run-script build` to create `public/bundle.js`
+
+## Minimal
+ Minimum project to verify the tool chain.
+

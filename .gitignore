@@ -1,5 +1,5 @@
 node_modules
 .ionide
-public/bundle.js
-src/bin
-src/obj
+*/public/bundle.js
+*/src/bin
+*/src/obj
