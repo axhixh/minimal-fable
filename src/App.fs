@@ -1,6 +1,5 @@
 module HelloApp
 
-open Fable.Core
 open Fable.Import
 
 let Greetings = "Hello, Fable!"
