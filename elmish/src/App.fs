@@ -7,7 +7,7 @@ type Model =
     editing : string }
 
 type Msg =
-  | Greet of string
+  | Greet
   | Editing of string
 
 let init() =
@@ -17,7 +17,9 @@ let init() =
 // UPDATE
 let update msg model =
   match msg with
-  | Greet str -> { model with name = str }
+  | Greet -> { model with 
+                name = model.editing 
+                editing = ""}
   | Editing str -> { model with editing = str }
 
 // VIEW
@@ -34,10 +36,7 @@ let view model dispatch =
                      |> Editing
                      |> dispatch)
                    AutoFocus true ]
-           button [ OnClick(fun _ ->
-                      model.editing
-                      |> Greet
-                      |> dispatch) ] [ str "Greet!" ]
+           button [ OnClick(fun _ -> Greet |> dispatch) ] [ str "Greet!" ]
            div [] [ str (sprintf "Hello, %s!" model.name) ] ]
 
 open Elmish.React
